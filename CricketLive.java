@@ -6,28 +6,43 @@ public class CricketLive {
 
 	public static void oDI(short over, short tBalls) {
 
-		// int run = 0, wicket = 0;
 		short balls = 0, wb = 0, nb = 0, extras = 0, run = 0, wicket = 0, del = 0, overs = 0;
 
 		try {
-		for (short i = 1; i < tBalls + 1; i++) {
+			for (short i = 1; i <= tBalls; i++) {
 			System.out.println("Please deiver your ball" + "\n1. Wide" + "\n2. No Ball" + "\n3. Vaid delivery\n");
 			del = (new Scanner(System.in)).nextShort();
 			if (del == 1) {
 				wb++;
-				balls = (short) (i - 1);
+				if (balls == 0) {
+					balls = 0;
+				} else if (balls == 1) {
+					balls = 1;
+				}
 				run++;
-				extras += wb;
-				currentScoreDisplay(run, wicket, balls, extras, nb, wb);
-				averageScoreDisplay(run, balls, over);
+				extras++;
+				if (balls % 6 == 0) {
+					// overs++;
+					balls = 0;
+				}
+				currentScoreDisplay(run, wicket, balls, extras, nb, wb, overs);
+				averageScoreDisplay(run, overs, over);
 				continue;
 			} else if (del == 2) {
 				nb++;
-				balls = (short) (i - 1);
+				if (balls == 0) {
+					balls = 0;
+				} else if (balls == 1) {
+					balls = 1;
+				}
 				run++;
-				extras += nb;
-				currentScoreDisplay(run, wicket, balls, extras, nb, wb);
-				averageScoreDisplay(run, balls, over);
+				extras++;
+				if (balls % 6 == 0) {
+					// overs++;
+					balls = 0;
+				}
+				currentScoreDisplay(run, wicket, balls, extras, nb, wb, overs);
+				averageScoreDisplay(run, overs, over);
 				continue;
 			} else {
 				System.out.println(
@@ -50,48 +65,65 @@ public class CricketLive {
 					wicket++;
 				}
 
-				balls = i;
-				currentScoreDisplay(run, wicket, balls, extras, nb, wb);
-				averageScoreDisplay(run, balls, over);
+				balls++;
+				if (balls % 6 == 0) {
+					overs++;
+					balls = 0;
+				}
+				currentScoreDisplay(run, wicket, balls, extras, nb, wb, overs);
+				averageScoreDisplay(run, overs, over);
 			}
 
-
 		}
-		} catch(Exception e) {
-			System.out.println("This is a exception in ODI : " + e.getMessage());
-		}
+	} catch (Exception e) {
+		System.out.println("This is a exception in ODI : " + e.getMessage());
+	}
 	}
 
 	public static void t20(short over, short tBalls) {
 
 		// int run = 0, wicket = 0;
-		short balls = 0, wb = 0, nb = 0, extras = 0, run = 0, wicket = 0, del = 0, overs = 0;
+		short balls = 0, wb = 0, nb = 0, extras = 0, run = 0, wicket = 0, del = 0, overs = 0, ballcntr = 0;
 
 		try {
-		for (short i = 1; i < tBalls + 1; i++) {
+			for (short i = 1; i <= tBalls; i++) {
 			System.out.println("Please deiver your ball" + "\n1. Wide" + "\n2. No Ball" + "\n3. Vaid delivery\n");
 			del = (new Scanner(System.in)).nextShort();
 			if (del == 1) {
 				wb++;
-				balls = (short) (i - 1);
+				if (balls == 0) {
+					balls = 0;
+				} else if (balls == 1) {
+					balls = 1;
+				}
 				run++;
-				extras += wb;
-				currentScoreDisplay(run, wicket, balls, extras, nb, wb);
-				averageScoreDisplay(run, balls, over);
+				extras++;
+				if (balls % 6 == 0) {
+					// overs++;
+					balls = 0;
+				}
+				currentScoreDisplay(run, wicket, balls, extras, nb, wb, overs);
+				averageScoreDisplay(run, overs, over);
 				continue;
-
 			} else if (del == 2) {
 				nb++;
-				balls = (short) (i - 1);
+				if (balls == 0) {
+					balls = 0;
+				} else if (balls == 1) {
+					balls = 1;
+				}
 				run++;
-				extras += nb;
-				currentScoreDisplay(run, wicket, balls, extras, nb, wb);
-				averageScoreDisplay(run, balls, over);
+				extras++;
+				if (balls % 6 == 0) {
+					// overs++;
+					balls = 0;
+				}
+				currentScoreDisplay(run, wicket, balls, extras, nb, wb, overs);
+				averageScoreDisplay(run, overs, over);
 				continue;
 			} else {
 				System.out.println("Check for run" + "\n1. Single" + "\n2. Double" + "\n3. Three" + "\n4. Four"
 						+ "\n5. No run" + "\n6. Six" + "\n7. Out");
-				@SuppressWarnings("resource")
 				short rInput = (new Scanner(System.in).nextShort());
 				if (rInput == 1) {
 					run += 1;
@@ -109,50 +141,51 @@ public class CricketLive {
 					wicket++;
 				}
 
-				balls = i;
-				currentScoreDisplay(run, wicket, balls, extras, nb, wb);
-				averageScoreDisplay(run, balls, over);
+				balls++;
+				if (balls % 6 == 0) {
+					overs++;
+					balls = 0;
+				}
+				currentScoreDisplay(run, wicket, balls, extras, nb, wb, overs);
+				averageScoreDisplay(run, overs, over);
 			}
 
 		}
-		}catch(Exception e) {
-			System.out.println("This is a exception in T20 : " + e.getMessage());
-		}
+	} catch (Exception e) {
+		System.out.println("This is a exception in T20 : " + e.getMessage());
+	}
 	}
 
-	public static void currentScoreDisplay(short run, short wicket, short balls, short extras, short nb, short wb) {
+	static int cntr = 1;
+	public static void currentScoreDisplay(short run, short wicket, short balls, short extras, short nb, short wb,
+			short overs) {
 
-		int cntr = 0;
+		// int cntr = 1;
 		System.out.println("\n**************************************************************************\n");
 		System.out.println("**************************************************************************\n");
 		System.out.println("Runs =" + run);
 		System.out.println("Wickets =" + wicket);
-		if (balls % 6 == 0) {
+		if (overs == cntr) {
 			cntr++;
-			System.out.println("Overs =" + cntr);
+			System.out.println("Overs =" + overs);
 		} else {
-			System.out.println("Overs =" + cntr + "." + balls);
+			System.out.println("Overs =" + overs + "." + balls);
 		}
 		System.out.println("Extras =" + extras + " : " + "wide=" + wb + " No ball=" + nb);
 		System.out.println("\n**************************************************************************\n");
 
 	}
 
-	public static void averageScoreDisplay(short run, short balls, short over) {
+	public static void averageScoreDisplay(short run, short overs, short over) {
 
 		double runRate = 0.0;
 		int scoreP = 0, cntr = 0;
+		cntr = overs;
 
 		try {
-		if (run > 0) {
-			if (balls % 6 == 0) {
-				cntr++;
+			if (run > 0 || cntr > 0) {
 				runRate = run / cntr;
-				scoreP = (int) ((runRate * (over-cntr)) + (runRate*cntr));
-			} else {
-				runRate = run / balls;
-				scoreP = (int) (runRate * balls);
-			}
+				scoreP = (int) (runRate * (over - cntr));
 		}
 
 		System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
@@ -160,9 +193,9 @@ public class CricketLive {
 		System.out.println("Run Rate =" + runRate);
 		System.out.println("Score Predictor =" + scoreP);
 		System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-		} catch(Exception e) {
-			System.out.println("This is xception in averageScoreDisplay : " + e.getMessage());
-		}
+	} catch (Exception e) {
+		System.out.println("This is xception in averageScoreDisplay : " + e.getMessage());
+	}
 
 	}
 
